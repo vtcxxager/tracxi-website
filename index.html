@@ -60,7 +60,7 @@
         .intro-word {
             font-size: clamp(60px, 15vw, 180px);
             font-weight: 900;
-            color: var(--tracxi-green); /* Solid Dark Green */
+            color: #0d5c06; /* Darker Green */
             text-transform: uppercase;
             letter-spacing: 12px;
             opacity: 0;
@@ -129,6 +129,9 @@
             padding: 80px 40px; width: 100%; max-width: 980px;
             margin: 40px 0; box-shadow: 0 15px 45px rgba(0,0,0,0.03);
             opacity: 0; transform: translateY(40px); transition: all 1s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .glass-panel.visible { opacity: 1; transform: translateY(0); }
@@ -162,7 +165,7 @@
         .timer-val { font-size: 44px; font-weight: 700; }
         .timer-label { font-size: 11px; text-transform: uppercase; color: var(--apple-gray); font-weight: 600; }
 
-        /* --- New Professional Footer --- */
+        /* --- Professional Footer --- */
         footer {
             padding: 80px 22px 40px;
             background: rgba(245, 245, 247, 0.9);
@@ -292,8 +295,8 @@
     <section id="about">
         <div class="glass-panel scroll-reveal">
             <h2 class="section-header" data-key="about_title">Simplified Connect</h2>
-            <p style="font-size: 21px; font-weight: 500; max-width: 700px; margin: 0 auto 30px;">Direct vehicle owner and load provider coordination across all Indian states.</p>
-            <p style="font-size: 17px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;">TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.</p>
+            <p style="font-size: 21px; font-weight: 500; max-width: 700px; margin: 0 auto 30px;" data-key="about_sub">Direct vehicle owner and load provider coordination across all Indian states.</p>
+            <p style="font-size: 17px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;" data-key="about_desc">TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.</p>
         </div>
     </section>
 
@@ -301,34 +304,33 @@
     <section id="projects">
         <div class="glass-panel scroll-reveal">
             <img src="https://www.vcxmart.com/logo.png" style="width: 140px; margin-bottom: 20px;">
-            <h2 class="section-header"><span class="text-saffron">VCX</span> MART</h2>
-            <p style="font-size: 19px; font-weight: 500;">Digital Infrastructure for Decentralized Commerce.</p>
-            <p style="font-size: 16px; color: var(--indian-green); font-weight: 600; margin: 15px 0;">INDIAN INNOVATION HUB</p>
-            <p style="font-size: 16px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;">Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.</p>
-            <a href="https://www.vcxmart.com" target="_blank" class="apple-btn" style="background: var(--tracxi-green); margin-top: 50px;">Visit Platform</a>
+            <h2 class="section-header"><span class="text-saffron">VCX</span> <span class="text-black">MART</span></h2>
+            <p style="font-size: 19px; font-weight: 500;" data-key="vcx_sub">Digital Infrastructure for Decentralized Commerce.</p>
+            <p style="font-size: 16px; color: var(--indian-green); font-weight: 600; margin: 15px 0;" data-key="vcx_origin">INDIAN INNOVATION HUB</p>
+            <p style="font-size: 16px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;" data-key="vcx_desc">Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.</p>
+            <a href="https://www.vcxmart.com" target="_blank" class="apple-btn" style="background: var(--tracxi-green); margin-top: 40px;" data-key="btn_visit">Visit Platform</a>
         </div>
 
         <div class="glass-panel scroll-reveal" style="border-style: dashed;">
             <div style="font-size: 40px; margin-bottom: 20px;">🔒</div>
-            <h2 class="section-header">NEW PROJECT REVEAL</h2>
+            <h2 class="section-header" data-key="reveal_title">NEW PROJECT REVEAL</h2>
             <div class="countdown-grid">
-                <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
-                <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
-                <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
-                <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+                <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label" data-key="days">Days</span></div>
+                <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label" data-key="hours">Hours</span></div>
+                <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label" data-key="mins">Mins</span></div>
+                <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label" data-key="secs">Secs</span></div>
             </div>
-            <p style="font-weight: 700; font-size: 18px; color: var(--tracxi-green);">LAUNCHING MAY 12, 2026</p>
+            <p style="font-weight: 700; font-size: 18px; color: var(--tracxi-green);" data-key="launch_date">LAUNCHING MAY 12, 2026</p>
         </div>
     </section>
 
     <!-- Contact -->
     <section id="contact">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">Contact</h2>
-            <p style="margin-bottom: 30px; font-size: 21px; font-weight: 500;">Bodepudi Suresh Infrastructure | Headquarters: India</p>
+            <h2 class="section-header" data-key="contact_title">Contact</h2>
+            <p style="margin-bottom: 30px; font-size: 21px; font-weight: 500;" data-key="contact_sub">Bodepudi Suresh Infrastructure | Headquarters: India</p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="tel:+918639222877" class="apple-btn">Call Infrastructure Dept</a>
-                <a href="mailto:sureshb1117@gmail.com" class="apple-btn" style="background: #333;">Support Email</a>
+                <a href="tel:+918639222877" class="apple-btn" data-key="btn_call">Call Infrastructure Dept</a>
             </div>
         </div>
     </section>
@@ -336,45 +338,45 @@
     <!-- Policy Sections -->
     <section id="privacy">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">Privacy Policy</h2>
+            <h2 class="section-header" data-key="privacy_title">Privacy Policy</h2>
             <div class="policy-body">
-                <p>TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers. By using the TRACXI application, you consent to our data handling practices designed for logistics efficiency.</p>
+                <p data-key="privacy_desc">TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers. By using the TRACXI application, you consent to our data handling practices designed for logistics efficiency.</p>
             </div>
         </div>
     </section>
 
     <section id="security">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">Security Policy</h2>
+            <h2 class="section-header" data-key="security_title">Security Policy</h2>
             <div class="policy-body">
-                <p>Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals. Security audits are performed regularly to protect the TRACXI infrastructure from unauthorized access or data breaches.</p>
+                <p data-key="security_desc">Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals. Security audits are performed regularly to protect the TRACXI infrastructure from unauthorized access or data breaches.</p>
             </div>
         </div>
     </section>
 
     <section id="cookie">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">Cookie Policy</h2>
+            <h2 class="section-header" data-key="cookie_title">Cookie Policy</h2>
             <div class="policy-body">
-                <p>We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform. By continuing to use TRACXI, you accept our use of strictly necessary cookies to ensure optimal app performance.</p>
+                <p data-key="cookie_desc">We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform. By continuing to use TRACXI, you accept our use of strictly necessary cookies to ensure optimal app performance.</p>
             </div>
         </div>
     </section>
 
     <section id="ip">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">IP Policy</h2>
+            <h2 class="section-header" data-key="ip_title">IP Policy</h2>
             <div class="policy-body">
-                <p>All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019). Unauthorized reproduction, scraping, or reverse engineering of the TRACXI platform is strictly prohibited and subject to legal action.</p>
+                <p data-key="ip_desc">All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019). Unauthorized reproduction, scraping, or reverse engineering of the TRACXI platform is strictly prohibited and subject to legal action.</p>
             </div>
         </div>
     </section>
 
     <section id="terms">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header">Terms of Service</h2>
+            <h2 class="section-header" data-key="terms_title">Terms of Service</h2>
             <div class="policy-body">
-                <p>Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer; we are not responsible for the direct contractual agreements between transporters and load providers. Misuse of contact information or fraudulent listings will result in permanent account termination.</p>
+                <p data-key="terms_desc">Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer; we are not responsible for the direct contractual agreements between transporters and load providers. Misuse of contact information or fraudulent listings will result in permanent account termination.</p>
             </div>
         </div>
     </section>
@@ -382,44 +384,190 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <h4>Navigation</h4>
+                <h4 data-key="foot_nav">Navigation</h4>
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="footer-col">
-                <h4>Ecosystem</h4>
+                <h4 data-key="foot_eco">Ecosystem</h4>
                 <a href="https://www.vcxmart.com" target="_blank">VCX MART</a>
                 <a href="https://play.google.com/store/apps/details?id=com.vmax.tracxi" target="_blank">TRACXI App</a>
             </div>
             <div class="footer-col">
                 <h4>Legal</h4>
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#security">Security Policy</a>
-                <a href="#cookie">Cookie Policy</a>
-                <a href="#ip">IP Policy</a>
-                <a href="#terms">Terms of Service</a>
+                <a href="#privacy" data-key="privacy_title">Privacy Policy</a>
+                <a href="#security" data-key="security_title">Security Policy</a>
+                <a href="#cookie" data-key="cookie_title">Cookie Policy</a>
+                <a href="#ip" data-key="ip_title">IP Policy</a>
+                <a href="#terms" data-key="terms_title">Terms of Service</a>
             </div>
             <div class="footer-col">
-                <h4>Support</h4>
-                <a href="mailto:sureshb1117@gmail.com">Email Support</a>
-                <a href="tel:+918639222877">Call Support</a>
+                <h4 data-key="foot_support">Support</h4>
+                <a href="tel:+918639222877" data-key="btn_call">Call Support</a>
                 <a href="javascript:void(0)">India Node</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.</span>
+            <span data-key="foot_copy">Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.</span>
             <div style="display:flex; gap: 20px;">
                 <span>India</span>
                 <span style="opacity:0.4;">|</span>
-                <span>Global Node</span>
+                <span data-key="global_node">Global Node</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // --- TRANSLATION ---
+        // --- TRANSLATION DATA ---
+        const translations = {
+            en: {
+                hero_main: "Logistics Is the Main Goal.", hero_sub: "Transportation is the main goal.",
+                btn_download: "Download Our App", about_title: "Simplified Connect",
+                about_sub: "Direct vehicle owner and load provider coordination across all Indian states.",
+                about_desc: "TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.",
+                vcx_sub: "Digital Infrastructure for Decentralized Commerce.", vcx_origin: "INDIAN INNOVATION HUB",
+                vcx_desc: "Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.",
+                btn_visit: "Visit Platform", reveal_title: "NEW PROJECT REVEAL", launch_date: "LAUNCHING MAY 12, 2026",
+                days: "Days", hours: "Hours", mins: "Mins", secs: "Secs",
+                contact_title: "Contact", contact_sub: "Bodepudi Suresh Infrastructure | Headquarters: India",
+                btn_call: "Call Support",
+                privacy_title: "Privacy Policy", security_title: "Security Policy", cookie_title: "Cookie Policy", ip_title: "IP Policy", terms_title: "Terms of Service",
+                privacy_desc: "TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers.",
+                security_desc: "Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals.",
+                cookie_desc: "We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform.",
+                ip_desc: "All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019).",
+                terms_desc: "Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer.",
+                foot_nav: "Navigation", foot_eco: "Ecosystem", foot_support: "Support",
+                foot_copy: "Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.", global_node: "Global Node"
+            },
+            hi: {
+                hero_main: "लॉजिस्टिक्स मुख्य लक्ष्य है।", hero_sub: "परिवहन मुख्य लक्ष्य है।",
+                btn_download: "ऐप डाउनलोड करें", about_title: "सरल कनेक्शन",
+                about_sub: "सभी भारतीय राज्यों में वाहन मालिक और लोड प्रदाता का सीधा समन्वय।",
+                about_desc: "TRACXI परिवहन क्षेत्र में विखंडन को समाप्त करता है। बिना किसी शुल्क के वास्तविक समय में लॉरी, ट्रेलर, टैंकर और कंटेनर खोजें।",
+                vcx_sub: "विकेंद्रीकृत वाणिज्य के लिए डिजिटल बुनियादी ढांचा।", vcx_origin: "भारतीय नवाचार केंद्र",
+                vcx_desc: "हमारा दूसरा प्रोजेक्ट वैश्विक स्तर पर आधुनिक वाणिज्य पारिस्थितिकी तंत्र को बढ़ाने के लिए डिज़ाइन किया गया है।",
+                btn_visit: "प्लेटफ़ॉर्म देखें", reveal_title: "नई परियोजना का खुलासा", launch_date: "12 मई, 2026 को लॉन्च",
+                days: "दिन", hours: "घंटे", mins: "मिनट", secs: "सेकंड",
+                contact_title: "संपर्क", contact_sub: "बोडेपुडी सुरेश इंफ्रास्ट्रक्चर | मुख्यालय: भारत",
+                btn_call: "सपोर्ट कॉल करें",
+                privacy_title: "गोपनीयता नीति", security_title: "सुरक्षा नीति", cookie_title: "कुकी नीति", ip_title: "आईपी नीति", terms_title: "सेवा की शर्तें",
+                privacy_desc: "TRACXI आपकी गोपनीयता को महत्व देता है। हम लोड प्रदाताओं और वाहन मालिकों के बीच लॉजिस्टिक्स मिलान की सुविधा के लिए स्थान डेटा एकत्र करते हैं।",
+                security_desc: "हमारा प्लेटफ़ॉर्म सभी संचार के लिए एंड-टू-एंड एन्क्रिप्शन लागू करता है। हम परिवहन पेशेवरों के लिए सुरक्षित वातावरण सुनिश्चित करते हैं।",
+                cookie_desc: "हम आपके सत्र को बनाए रखने और आपकी भाषा प्राथमिकताओं को याद रखने के लिए आवश्यक कुकीज़ का उपयोग करते हैं।",
+                ip_desc: "सभी सॉफ्टवेयर, ब्रांड तत्व और अंतर्निहित लॉजिस्टिक्स एल्गोरिदम बोडेपुडी सुरेश / TRACXI (2019) की विशेष बौद्धिक संपदा हैं।",
+                terms_desc: "उपयोगकर्ताओं को वाहन की उपलब्धता और लोड आवश्यकताओं के संबंध में सटीक जानकारी प्रदान करनी चाहिए।",
+                foot_nav: "नेविगेशन", foot_eco: "पारिस्थितिकी तंत्र", foot_support: "सहायता",
+                foot_copy: "कॉपीराइट © 2019 - 2026 TRACXI। सर्वाधिकार सुरक्षित। बोडेपुडी सुरेश इंफ्रास्ट्रक्चर।", global_node: "ग्लोबल नोड"
+            },
+            te: {
+                hero_main: "లాజిస్టిక్స్ ప్రధాన లక్ష్యం.", hero_sub: "రవాణా ప్రధాన లక్ష్యం.",
+                btn_download: "యాప్‌ను డౌన్‌లోడ్ చేయండి", about_title: "సరళమైన అనుసంధానం",
+                about_sub: "అన్ని భారతీయ రాష్ట్రాలలో వాహన యజమాని మరియు లోడ్ ప్రొవైడర్ ప్రత్యక్ష సమన్వయం.",
+                about_desc: "TRACXI రవాణా రంగంలో విచ్ఛిన్నతను తొలగిస్తుంది. ఎటువంటి రుసుము లేకుండా నిజ సమయంలో లారీలు, ట్రైలర్లు, ట్యాంకర్లు మరియు కంటైనర్‌లను బ్రౌజ్ చేయండి.",
+                vcx_sub: "వికేంద్రీకృత వాణిజ్యం కోసం డిజిటల్ మౌలిక సదుపాయాలు.", vcx_origin: "భారతీయ ఆవిష్కరణ కేంద్రం",
+                vcx_desc: "మా ఇతర ప్రాజెక్ట్ ప్రపంచవ్యాప్తంగా ఆధునిక వాణిజ్య పర్యావరణ వ్యవస్థలను స్కేల్ చేయడానికి రూపొందించబడింది.",
+                btn_visit: "ప్లాట్‌ఫారమ్‌ను సందర్శించండి", reveal_title: "కొత్త ప్రాజెక్ట్ వెల్లడి", launch_date: "మే 12, 2026న ప్రారంభం",
+                days: "రోజులు", hours: "గంటలు", mins: "నిమిషాలు", secs: "సెకన్లు",
+                contact_title: "సంప్రదించండి", contact_sub: "బోడెపూడి సురేష్ ఇన్ఫ్రాస్ట్రక్చర్ | ప్రధాన కార్యాలయం: భారతదేశం",
+                btn_call: "మద్దతు కోసం కాల్ చేయండి",
+                privacy_title: "గోప్యతా విధానం", security_title: "భద్రతా విధానం", cookie_title: "కుకీ విధానం", ip_title: "IP విధానం", terms_title: "సేవా నిబంధనలు",
+                privacy_desc: "TRACXI మీ గోప్యతను గౌరవిస్తుంది. లోడ్ ప్రొవైడర్లు మరియు వాహన యజమానుల మధ్య లాజిస్టిక్స్ మ్యాచింగ్‌ను సులభతరం చేయడానికి మేము స్థాన డేటాను సేకరిస్తాము.",
+                security_desc: "మా ప్లాట్‌ఫారమ్ అన్ని కమ్యూనికేషన్ల కోసం ఎండ్-టు-ఎండ్ ఎన్క్రిప్షన్‌ను అమలు చేస్తుంది.",
+                cookie_desc: "మేము మీ సెషన్‌ను నిర్వహించడానికి మరియు మీ భాషా ప్రాధాన్యతలను గుర్తుంచుకోవడానికి అవసరమైన కుకీలను ఉపయోగిస్తాము.",
+                ip_desc: "అన్ని సాఫ్ట్‌వేర్, బ్రాండ్ ఎలిమెంట్స్ మరియు లాజిస్టిక్స్ అల్గారిథమ్స్ బోడెపూడి సురేష్ / TRACXI (2019) యొక్క ప్రత్యేక మేధో సంపత్తి.",
+                terms_desc: "వినియోగదారులు వాహన లభ్యత మరియు లోడ్ అవసరాలకు సంబంధించి ఖచ్చితమైన సమాచారాన్ని అందించాలి.",
+                foot_nav: "నావిగేషన్", foot_eco: "పర్యావరణ వ్యవస్థ", foot_support: "మద్దతు",
+                foot_copy: "కాపీరైట్ © 2019 - 2026 TRACXI. అన్ని హక్కులు ప్రత్యేకించబడ్డాయి. బోడెపూడి సురేష్ ఇన్ఫ్రాస్ట్రక్చర్.", global_node: "గ్లోబల్ నోడ్"
+            },
+            ta: {
+                hero_main: "தளவாடங்கள் முக்கிய குறிக்கோள்.", hero_sub: "போக்குவரத்தே முக்கிய குறிக்கோள்.",
+                btn_download: "பயன்பாட்டைப் பதிவிறக்கவும்", about_title: "எளிமையான இணைப்பு",
+                about_sub: "இந்திய மாநிலங்கள் முழுவதும் வாகன உரிமையாளர் மற்றும் சுமை வழங்குநர் நேரடி ஒருங்கிணைப்பு.",
+                about_desc: "TRACXI போக்குவரத்து துறையில் பிளவுகளை நீக்குகிறது. நிகழ்நேரத்தில் லாரிகள், டிரெய்லர்கள் மற்றும் கொள்கலன்களை உலாவவும்.",
+                vcx_sub: "பரவலாக்கப்பட்ட வர்த்தகத்திற்கான டிஜிட்டல் உள்கட்டமைப்பு.", vcx_origin: "இந்திய கண்டுபிடிப்பு மையம்",
+                btn_visit: "தளத்தைப் பார்வையிடவும்", reveal_title: "புதிய திட்ட வெளிப்பாடு", launch_date: "மே 12, 2026 அன்று தொடங்குகிறது",
+                days: "நாட்கள்", hours: "மணிநேரம்", mins: "நிமிடம்", secs: "வினாடி",
+                privacy_title: "தனியுரிமைக் கொள்கை", security_title: "பாதுகாப்புக் கொள்கை", cookie_title: "குக்கீ கொள்கை", ip_title: "IP கொள்கை", terms_title: "சேவை விதிமுறைகள்",
+                foot_nav: "வழிசெலுத்தல்", foot_eco: "சுற்றுச்சூழல்", foot_support: "ஆதரவு"
+            },
+            kn: {
+                hero_main: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಮುಖ್ಯ ಗುರಿ.", hero_sub: "ಸಾರಿಗೆಯೇ ಮುಖ್ಯ ಗುರಿ.",
+                btn_download: "ಅಪ್ಲಿಕೇಶನ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", about_title: "ಸರಳೀಕೃತ ಸಂಪರ್ಕ",
+                about_sub: "ಭಾರತದಾದ್ಯಂತ ವಾಹನ ಮಾಲೀಕರು ಮತ್ತು ಲೋಡ್ ಪೂರೈಕೆದಾರರ ನೇರ ಸಮನ್ವಯ.",
+                btn_visit: "ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಭೇಟಿ ಮಾಡಿ", reveal_title: "ಹೊಸ ಯೋಜನೆ ಅನಾವರಣ", launch_date: "ಮೇ 12, 2026 ರಂದು ಪ್ರಾರಂಭ",
+                days: "ದಿನಗಳು", hours: "ಗಂಟೆಗಳು", mins: "ನಿಮಿಷ", secs: "ಸೆಕೆಂಡ್",
+                privacy_title: "ಗೌಪ್ಯತಾ ನೀತಿ", security_title: "ಭದ್ರತಾ ನೀತಿ", cookie_title: "ಕುಕೀ ನೀತಿ", ip_title: "IP ನೀತಿ", terms_title: "ಸೇವಾ ನಿಯಮಗಳು",
+                foot_nav: "ನ್ಯಾವಿಗೇಷನ್", foot_eco: "ಪರಿಸರ ವ್ಯವಸ್ಥೆ", foot_support: "ಬೆಂಬಲ"
+            },
+            ml: {
+                hero_main: "ലോജിസ്റ്റിക്സ് ആണ് പ്രധാന ലക്ഷ്യം.", hero_sub: "ഗതാഗതമാണ് പ്രധാന ലക്ഷ്യം.",
+                btn_download: "ആപ്പ് ഡൗൺലോഡ് ചെയ്യുക", about_title: "ലളിതമായ കണക്ട്",
+                btn_visit: "പ്ലാറ്റ്‌ഫോം സന്ദർശിക്കുക", reveal_title: "പുതിയ പദ്ധതി വെളിപ്പെടുത്തൽ", launch_date: "മേയ് 12, 2026 ന് സമാരംഭിക്കുന്നു",
+                days: "ദിവസങ്ങൾ", hours: "മണിക്കൂർ", mins: "മിനിറ്റ്", secs: "സെക്കൻഡ്",
+                privacy_title: "സ്വകാര്യതാ നയം", security_title: "സുരക്ഷാ നയം", cookie_title: "കുക്കി നയം", ip_title: "IP നയം", terms_title: "സേവന നിബന്ധനകൾ",
+                foot_nav: "നാവിഗേഷൻ", foot_eco: "ഇക്കോസിസ്റ്റം", foot_support: "പിന്തുണ"
+            },
+            bn: {
+                hero_main: "লজিস্টিকস মূল লক্ষ্য।", hero_sub: "পরিবহন মূল লক্ষ্য।",
+                btn_download: "অ্যাপ ডাউনলোড করুন", about_title: "সরলীকৃত সংযোগ",
+                btn_visit: "প্ল্যাটফর্ম দেখুন", reveal_title: "নতুন প্রকল্প উন্মোচন", launch_date: "১২ মে, ২০২৬ এ চালু হচ্ছে",
+                days: "দিন", hours: "ঘন্টা", mins: "মিনিট", secs: "সেকেন্ড",
+                privacy_title: "গোপনীয়তা নীতি", security_title: "নিরাপত্তা নীতি", cookie_title: "কুকি নীতি", ip_title: "আইপি নীতি", terms_title: "পরিষেবার শর্তাবলী",
+                foot_nav: "নেভিগেশন", foot_eco: "ইকোসিস্টেম", foot_support: "সহায়তা"
+            },
+            gu: {
+                hero_main: "લોજિસ્ટિક્સ મુખ્ય ધ્યેય છે.", hero_sub: "પરિવહન મુખ્ય ધ્યેય છે.",
+                btn_download: "એપ્લિકેશન ડાઉનલોડ કરો", about_title: "સરળીકૃત કનેક્ટ",
+                btn_visit: "પ્લેટફોર્મની મુલાકાત લો", reveal_title: "નવી પ્રોજેક્ટ જાહેરાત", launch_date: "12 મે, 2026 ના રોજ લોન્ચ",
+                days: "દિવસો", hours: "કલાકો", mins: "મિનિટ", secs: "સેકન્ડ",
+                privacy_title: "ગોપનીયતા નીતિ", security_title: "સુરક્ષા નીતિ", cookie_title: "કૂકી નીતિ", ip_title: "IP નીતિ", terms_title: "સેવાની શરતો",
+                foot_nav: "નેવિગેશન", foot_eco: "ઇકોસિસ્ટમ", foot_support: "સપોર્ટ"
+            },
+            mr: {
+                hero_main: "लॉजिस्टिक हे मुख्य ध्येय आहे.", hero_sub: "वाहतूक हे मुख्य ध्येय आहे.",
+                btn_download: "अॅप डाउनलोड करा", about_title: "सरलीकृत कनेक्ट",
+                btn_visit: "प्लॅटफॉर्मला भेट द्या", reveal_title: "नवीन प्रकल्पाचे अनावरण", launch_date: "१२ मे, २०२६ रोजी लाँच",
+                days: "दिवस", hours: "तास", mins: "मिनिटे", secs: "सेकंद",
+                privacy_title: "गोपनीयता धोरण", security_title: "सुरक्षा धोरण", cookie_title: "कुकी धोरण", ip_title: "आयपी धोरण", terms_title: "सेवा अटी",
+                foot_nav: "नेव्हिगेशन", foot_eco: "इकोसिस्टम", foot_support: "सपोर्ट"
+            },
+            pa: {
+                hero_main: "ਲੌਜਿਸਟਿਕਸ ਮੁੱਖ ਟੀਚਾ ਹੈ।", hero_sub: "ਆਵਾਜਾਈ ਮੁੱਖ ਟੀਚਾ ਹੈ।",
+                btn_download: "ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ", about_title: "ਸਰਲੀਕ੍ਰਿਤ ਕਨੈਕਟ",
+                btn_visit: "ਪਲੇਟਫਾਰਮ 'ਤੇ ਜਾਓ", reveal_title: "ਨਵਾਂ ਪ੍ਰੋਜੈಕ್ਟ ਖੁਲਾਸਾ", launch_date: "12 ਮਈ, 2026 ਨੂੰ ਲਾਂਚ",
+                days: "ਦਿਨ", hours: "ਘੰਟੇ", mins: "ਮਿੰਟ", secs: "ਸੈਕੰਡ",
+                privacy_title: "ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ", security_title: "ਸੁਰੱਖਿਆ ਪਾਲਿસી", cookie_title: "ਕੂਕੀ ਪਾਲਿસી", ip_title: "IP ਪਾਲਿસી", terms_title: "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ",
+                foot_nav: "ਨੇਵੀਗੇਸ਼ਨ", foot_eco: "ਈਕੋਸਿਸਟਮ", foot_support: "ਸਹਾਇਤਾ"
+            },
+            ur: {
+                hero_main: "لاجسٹکس اصل مقصد ہے۔", hero_sub: "نقل و حمل اصل مقصد ہے۔",
+                btn_download: "ایپ ڈاؤن لوڈ کریں", about_title: "سادہ رابطہ",
+                btn_visit: "پلیٹ فارم دیکھیں", reveal_title: "نیا پروجیکٹ انکشاف", launch_date: "12 مئی 2026 کو لانچ ہو رہا ہے",
+                days: "دن", hours: "گھنٹے", mins: "منٹ", secs: "سیکنڈ",
+                privacy_title: "رازداری کی پالیسی", security_title: "سیکیورٹی پالیسی", cookie_title: "کوکی پالیسی", ip_title: "آئی پی پالیسی", terms_title: "سروس کی شرائط",
+                foot_nav: "نیویگیشن", foot_eco: "ایکو سسٹم", foot_support: "سپورٹ"
+            },
+            or: {
+                hero_main: "ଲଜିଷ୍ଟିକ୍ସ ହେଉଛି ମୂଳ ଲକ୍ଷ୍ୟ |", hero_sub: "ପରିବହନ ହେଉଛି ମୂଳ ଲକ୍ଷ୍ୟ |",
+                btn_download: "ଆପ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ", about_title: "ସରଳିକୃତ ସଂଯୋଗ",
+                btn_visit: "ପ୍ଲାଟଫର୍ମ ପରିଦର୍ଶନ କରନ୍ତୁ", reveal_title: "ନୂତନ ପ୍ରକଳ୍ପ ଉନ୍ମୋଚନ", launch_date: "ମଇ 12, 2026 ରେ ଲଞ୍ଚ",
+                days: "ଦିନ", hours: "ଘଣ୍ଟା", mins: "ମିନିଟ୍", secs: "ସେକେଣ୍ଡ",
+                privacy_title: "ଗୋପନୀୟତା ନୀତି", security_title: "ସୁରକ୍ଷା ନୀତି", cookie_title: "କୁକି ନୀତି", ip_title: "IP ନୀତି", terms_title: "ସେବା ସର୍ତ୍ତାବଳୀ",
+                foot_nav: "ନେଭିଗେସନ୍", foot_eco: "ଇକୋସିଷ୍ଟମ", foot_support: "ସହାୟତା"
+            },
+            sa: {
+                hero_main: "रसदः मुख्यं लक्ष्यम् अस्ति।", hero_sub: "परिवहनं मुख्यं लक्ष्यम् अस्ति।",
+                btn_download: "अप्पितं डाउनलोड् कुर्वन्तु", about_title: "सरलीकृतं संधत्स्व",
+                btn_visit: "मञ्चं पश्यन्तु", reveal_title: "नवीनपरियोजना अनावरणम्", launch_date: "मई १२, २०२६ दिनाङ्के प्रारभ्यते",
+                days: "दिनानि", hours: "होराः", mins: "निमेषाः", secs: "क्षणाः",
+                privacy_title: "गोपनीयतानीतिः", security_title: "सुरक्षानीतिः", cookie_title: "कुकीनीतिः", ip_title: "बौद्धिकसम्पत्तिनीतिः", terms_title: "सेवाशर्ताः",
+                foot_nav: "संचालनम्", foot_eco: "पारिस्थितिकी", foot_support: "सहायता"
+            }
+        };
+
         const languages = [
             { code: 'en', name: 'English' }, { code: 'hi', name: 'हिन्दी' }, { code: 'te', name: 'తెలుగు' },
             { code: 'ta', name: 'தமிழ்' }, { code: 'kn', name: 'ಕನ್ನಡ' }, { code: 'ml', name: 'മലയാളം' },
@@ -434,9 +582,18 @@
             btn.className = 'popup-link';
             btn.href = 'javascript:void(0)';
             btn.innerText = lang.name;
-            btn.onclick = () => { togglePopup('lang-popup'); };
+            btn.onclick = () => { setLanguage(lang.code); };
             langGrid.appendChild(btn);
         });
+
+        function setLanguage(code) {
+            const dict = translations[code] || translations['en'];
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(dict[key]) el.innerText = dict[key];
+            });
+            togglePopup('lang-popup');
+        }
 
         // --- UI CONTROL ---
         function togglePopup(id) {
@@ -474,13 +631,11 @@
 
         class Particle {
             constructor() {
-                // Fixed: Random initialization across screen
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
                 this.size = Math.random() * 80 + 30;
                 this.vx = (Math.random() - 0.5) * 0.35;
                 this.vy = (Math.random() - 0.5) * 0.35;
-                // Mix of Green and Grey
                 this.colorType = Math.random() > 0.6 ? 'grey' : 'green';
             }
             update() {
@@ -513,7 +668,6 @@
 
         window.addEventListener('resize', () => {
             resize();
-            // Re-init so they don't jump to (0,0) or cluster
             initParticles();
         });
         
