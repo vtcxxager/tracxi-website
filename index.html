@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACXI | Logistics Simplified</title>
+    <style>
+        :root {
+            --apple-black: #1d1d1f;
+            --apple-gray: #86868b;
+            --tracxi-green: #138808;
+            --indian-saffron: #FF9933;
+            --indian-green: #138808;
+            --foggy-glass: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --bg-gradient: linear-gradient(135deg, #dcdcdc 0%, #f5f5f7 100%);
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--apple-black);
+            overflow-x: hidden;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+        }
+
+        /* --- Background Particles --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- Intro Animation --- */
+        .intro-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .intro-word {
+            font-size: clamp(60px, 15vw, 180px);
+            font-weight: 900;
+            color: var(--tracxi-green); /* Solid Dark Green */
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            opacity: 0;
+            transform: scale(0.9) translateY(40px);
+            animation: introReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            margin-bottom: 20px;
+        }
+
+        @keyframes introReveal {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 52px;
+            background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 1024px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 22px;
+        }
+
+        .logo { font-weight: 700; font-size: 19px; cursor: pointer; }
+
+        .nav-controls { display: flex; gap: 20px; }
+
+        .nav-btn {
+            background: none; border: none; color: var(--apple-black);
+            font-size: 13px; font-weight: 400; cursor: pointer;
+            opacity: 0.8; transition: opacity 0.3s ease;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .nav-btn:hover { opacity: 1; }
+
+        /* --- Glass Components --- */
+        .glass-popup {
+            position: fixed; top: 60px; right: 22px; width: 280px;
+            background: var(--foggy-glass); backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+            border: 1px solid var(--glass-border); border-radius: 18px;
+            padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: none; z-index: 1100;
+        }
+
+        .popup-active { display: block !important; }
+
+        .glass-panel {
+            background: var(--foggy-glass); backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 80px 40px; width: 100%; max-width: 980px;
+            margin: 40px 0; box-shadow: 0 15px 45px rgba(0,0,0,0.03);
+            opacity: 0; transform: translateY(40px); transition: all 1s ease-out;
+        }
+
+        .glass-panel.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- Hero --- */
+        section {
+            min-height: 100vh; padding: 100px 22px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+
+        .hero-title { font-size: clamp(36px, 7vw, 72px); font-weight: 700; margin-bottom: 15px; letter-spacing: -0.01em; }
+        .hero-tagline { font-size: clamp(18px, 3.5vw, 24px); font-weight: 600; color: var(--tracxi-green); margin-bottom: 40px; }
+
+        .cta-box { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .app-icon { width: 100px; height: 100px; border-radius: 22px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .apple-btn {
+            background: var(--apple-black); color: white; padding: 14px 28px;
+            border-radius: 980px; text-decoration: none; font-size: 17px;
+            font-weight: 600; transition: var(--transition);
+        }
+
+        /* --- Specific Section Layouts --- */
+        .section-header { font-size: 40px; font-weight: 700; margin-bottom: 25px; }
+        .policy-body { font-size: 16px; color: var(--apple-gray); line-height: 1.8; text-align: left; }
+
+        .text-saffron { color: var(--indian-saffron); font-weight: 900; }
+        .text-green { color: var(--indian-green); font-weight: 900; }
+
+        .countdown-grid { display: flex; gap: 25px; justify-content: center; margin: 35px 0; }
+        .timer-unit { display: flex; flex-direction: column; }
+        .timer-val { font-size: 44px; font-weight: 700; }
+        .timer-label { font-size: 11px; text-transform: uppercase; color: var(--apple-gray); font-weight: 600; }
+
+        /* --- New Professional Footer --- */
+        footer {
+            padding: 80px 22px 40px;
+            background: rgba(245, 245, 247, 0.9);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-grid {
+            width: 100%;
+            max-width: 1024px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--apple-black);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 12px;
+            color: var(--apple-gray);
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--tracxi-green); }
+
+        .footer-bottom {
+            width: 100%;
+            max-width: 1024px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: left;
+            font-size: 11px;
+            color: var(--apple-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 300px; overflow-y: auto; }
+        .popup-link {
+            display: block; padding: 12px; color: var(--apple-black); text-decoration: none;
+            font-size: 14px; font-weight: 500; border-radius: 10px; transition: background 0.2s;
+        }
+        .popup-link:hover { background: rgba(0,0,0,0.05); }
+
+        @media (max-width: 768px) {
+            .nav-btn span { display: none; }
+            .hero-title { font-size: 42px; }
+            .countdown-grid { gap: 15px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
+            .footer-bottom { justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo" onclick="window.scrollTo(0,0)">TRACXI</div>
+            <div class="nav-controls">
+                <button class="nav-btn" onclick="togglePopup('menu-popup')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <span>Menu</span>
+                </button>
+                <button class="nav-btn" onclick="togglePopup('lang-popup')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <span>Translate</span>
+                </button>
+                <a href="#contact" class="nav-btn" style="text-decoration: none;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.38-2.38a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Popups -->
+    <div class="glass-popup" id="menu-popup">
+        <a href="#home" class="popup-link" onclick="togglePopup('menu-popup')">Home</a>
+        <a href="#about" class="popup-link" onclick="togglePopup('menu-popup')">About</a>
+        <a href="#projects" class="popup-link" onclick="togglePopup('menu-popup')">Projects</a>
+        <a href="#contact" class="popup-link" onclick="togglePopup('menu-popup')">Contact</a>
+        <div style="height: 1px; background: rgba(0,0,0,0.1); margin: 10px 0;"></div>
+        <a href="#privacy" class="popup-link" onclick="togglePopup('menu-popup')">Privacy Policy</a>
+        <a href="#security" class="popup-link" onclick="togglePopup('menu-popup')">Security Policy</a>
+        <a href="#cookie" class="popup-link" onclick="togglePopup('menu-popup')">Cookie Policy</a>
+        <a href="#ip" class="popup-link" onclick="togglePopup('menu-popup')">IP Policy</a>
+        <a href="#terms" class="popup-link" onclick="togglePopup('menu-popup')">Terms of Service</a>
+    </div>
+
+    <div class="glass-popup" id="lang-popup">
+        <div class="lang-grid" id="lang-grid"></div>
+    </div>
+
+    <!-- Home -->
+    <section id="home">
+        <div class="intro-container">
+            <div class="intro-word">TRACXI</div>
+        </div>
+        <h1 class="hero-title" data-key="hero_main">Logistics Is the Main Goal.</h1>
+        <p class="hero-tagline" data-key="hero_sub">Transportation is the main goal.</p>
+        <div class="cta-box">
+            <img src="https://th.bing.com/th/id/OIP.VE-XjdOywRWVHVdbbn-VdAHaHa?w=108&h=108&c=1&bgcl=4e9ccf&r=0&o=7&pid=ImgRC&rm=3" alt="TRACXI Logo" class="app-icon">
+            <a href="https://play.google.com/store/apps/details?id=com.vmax.tracxi" target="_blank" class="apple-btn" data-key="btn_download">Download Our App</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header" data-key="about_title">Simplified Connect</h2>
+            <p style="font-size: 21px; font-weight: 500; max-width: 700px; margin: 0 auto 30px;">Direct vehicle owner and load provider coordination across all Indian states.</p>
+            <p style="font-size: 17px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;">TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.</p>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="glass-panel scroll-reveal">
+            <img src="https://www.vcxmart.com/logo.png" style="width: 140px; margin-bottom: 20px;">
+            <h2 class="section-header"><span class="text-saffron">VCX</span> MART</h2>
+            <p style="font-size: 19px; font-weight: 500;">Digital Infrastructure for Decentralized Commerce.</p>
+            <p style="font-size: 16px; color: var(--indian-green); font-weight: 600; margin: 15px 0;">INDIAN INNOVATION HUB</p>
+            <p style="font-size: 16px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;">Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.</p>
+            <a href="https://www.vcxmart.com" target="_blank" class="apple-btn" style="background: var(--tracxi-green); margin-top: 40px;">Visit Platform</a>
+        </div>
+
+        <div class="glass-panel scroll-reveal" style="border-style: dashed;">
+            <div style="font-size: 40px; margin-bottom: 20px;">🔒</div>
+            <h2 class="section-header">NEW PROJECT REVEAL</h2>
+            <div class="countdown-grid">
+                <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
+                <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
+                <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
+                <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+            </div>
+            <p style="font-weight: 700; font-size: 18px; color: var(--tracxi-green);">LAUNCHING MAY 12, 2026</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">Contact</h2>
+            <p style="margin-bottom: 30px; font-size: 21px; font-weight: 500;">Bodepudi Suresh Infrastructure | Headquarters: India</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="tel:+918639222877" class="apple-btn">Call Infrastructure Dept</a>
+                <a href="mailto:sureshb1117@gmail.com" class="apple-btn" style="background: #333;">Support Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy Sections -->
+    <section id="privacy">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">Privacy Policy</h2>
+            <div class="policy-body">
+                <p>TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers. By using the TRACXI application, you consent to our data handling practices designed for logistics efficiency.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="security">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">Security Policy</h2>
+            <div class="policy-body">
+                <p>Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals. Security audits are performed regularly to protect the TRACXI infrastructure from unauthorized access or data breaches.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cookie">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">Cookie Policy</h2>
+            <div class="policy-body">
+                <p>We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform. By continuing to use TRACXI, you accept our use of strictly necessary cookies to ensure optimal app performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ip">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">IP Policy</h2>
+            <div class="policy-body">
+                <p>All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019). Unauthorized reproduction, scraping, or reverse engineering of the TRACXI platform is strictly prohibited and subject to legal action.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="terms">
+        <div class="glass-panel scroll-reveal">
+            <h2 class="section-header">Terms of Service</h2>
+            <div class="policy-body">
+                <p>Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer; we are not responsible for the direct contractual agreements between transporters and load providers. Misuse of contact information or fraudulent listings will result in permanent account termination.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Ecosystem</h4>
+                <a href="https://www.vcxmart.com" target="_blank">VCX MART</a>
+                <a href="https://play.google.com/store/apps/details?id=com.vmax.tracxi" target="_blank">TRACXI App</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#security">Security Policy</a>
+                <a href="#cookie">Cookie Policy</a>
+                <a href="#ip">IP Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="mailto:sureshb1117@gmail.com">Email Support</a>
+                <a href="tel:+918639222877">Call Support</a>
+                <a href="javascript:void(0)">India Node</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.</span>
+            <div style="display:flex; gap: 20px;">
+                <span>India</span>
+                <span style="opacity:0.4;">|</span>
+                <span>Global Node</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- TRANSLATION ---
+        const languages = [
+            { code: 'en', name: 'English' }, { code: 'hi', name: 'हिन्दी' }, { code: 'te', name: 'తెలుగు' },
+            { code: 'ta', name: 'தமிழ்' }, { code: 'kn', name: 'ಕನ್ನಡ' }, { code: 'ml', name: 'മലയാളം' },
+            { code: 'bn', name: 'বাংলা' }, { code: 'gu', name: 'ગુજરાતી' }, { code: 'mr', name: 'मराठी' },
+            { code: 'pa', name: 'ਪੰਜਾਬੀ' }, { code: 'ur', name: 'اردو' }, { code: 'or', name: 'ଓଡ଼ିଆ' },
+            { code: 'sa', name: 'संस्कृत' }
+        ];
+
+        const langGrid = document.getElementById('lang-grid');
+        languages.forEach(lang => {
+            const btn = document.createElement('a');
+            btn.className = 'popup-link';
+            btn.href = 'javascript:void(0)';
+            btn.innerText = lang.name;
+            btn.onclick = () => { togglePopup('lang-popup'); };
+            langGrid.appendChild(btn);
+        });
+
+        // --- UI CONTROL ---
+        function togglePopup(id) {
+            const target = document.getElementById(id);
+            const active = target.classList.contains('popup-active');
+            document.querySelectorAll('.glass-popup').forEach(p => p.classList.remove('popup-active'));
+            if(!active) target.classList.add('popup-active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.nav-btn') && !e.target.closest('.glass-popup')) {
+                document.querySelectorAll('.glass-popup').forEach(p => p.classList.remove('popup-active'));
+            }
+        });
+
+        // --- SCROLL REVEAL ---
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // --- PARTICLES (Green & Grey Mix) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                // Fixed: Random initialization across screen
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.size = Math.random() * 80 + 30;
+                this.vx = (Math.random() - 0.5) * 0.35;
+                this.vy = (Math.random() - 0.5) * 0.35;
+                // Mix of Green and Grey
+                this.colorType = Math.random() > 0.6 ? 'grey' : 'green';
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x < -100 || this.x > canvas.width + 100) this.vx *= -1;
+                if(this.y < -100 || this.y > canvas.height + 100) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                if (this.colorType === 'green') {
+                    ctx.fillStyle = 'rgba(19, 136, 8, 0.08)';
+                } else {
+                    ctx.fillStyle = 'rgba(128, 128, 128, 0.12)';
+                }
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for(let i=0; i<45; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            // Re-init so they don't jump to (0,0) or cluster
+            initParticles();
+        });
+        
+        resize(); initParticles(); animate();
+
+        // --- COUNTDOWN ---
+        const targetDate = new Date("May 12, 2026 00:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('days').innerText = d.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('mins').innerText = m.toString().padStart(2, '0');
+            document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000); updateCountdown();
+
+        // --- SECURITY ---
+        document.addEventListener('contextmenu', e => e.preventDefault());
+    </script>
+</body>
+</html>
