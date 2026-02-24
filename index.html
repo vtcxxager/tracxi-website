@@ -9,12 +9,13 @@
             --apple-black: #1d1d1f;
             --apple-gray: #86868b;
             --tracxi-green: #138808;
-            --indian-saffron: #FF9933;
-            --indian-green: #138808;
-            --foggy-glass: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --bg-gradient: linear-gradient(135deg, #dcdcdc 0%, #f5f5f7 100%);
-            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --tracxi-gold: #D4AF37;
+            --premium-gold: #FFD700;
+            --deep-green: #0a4d04;
+            --foggy-glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(212, 175, 55, 0.3);
+            --bg-gradient: radial-gradient(circle at top right, #fdfbfb 0%, #ebedee 100%);
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
@@ -30,15 +31,13 @@
 
         body {
             background: var(--bg-gradient);
-            background-attachment: fixed;
             color: var(--apple-black);
             overflow-x: hidden;
-            line-height: 1.47059;
+            line-height: 1.5;
             font-weight: 400;
-            letter-spacing: -0.022em;
         }
 
-        /* --- Background Particles --- */
+        /* --- Background Effects --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -47,42 +46,32 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            background: #f8f9fa;
         }
 
-        /* --- Intro Animation --- */
-        .intro-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -2;
+            opacity: 0.15;
+            pointer-events: none;
         }
+        .glow-1 { top: -10%; right: -10%; background: var(--tracxi-gold); }
+        .glow-2 { bottom: -10%; left: -10%; background: var(--tracxi-green); }
 
-        .intro-word {
-            font-size: clamp(60px, 15vw, 180px);
-            font-weight: 900;
-            color: #0d5c06; /* Darker Green */
-            text-transform: uppercase;
-            letter-spacing: 12px;
-            opacity: 0;
-            transform: scale(0.9) translateY(40px);
-            animation: introReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            margin-bottom: 20px;
-        }
-
-        @keyframes introReveal {
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* --- Navigation Bar --- */
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            height: 52px;
-            background: rgba(245, 245, 247, 0.8);
+            height: 64px;
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             z-index: 1000;
             display: flex;
             justify-content: center;
@@ -90,170 +79,182 @@
 
         .nav-content {
             width: 100%;
-            max-width: 1024px;
+            max-width: 1100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 22px;
+            padding: 0 24px;
         }
 
-        .logo { font-weight: 700; font-size: 19px; cursor: pointer; }
+        .logo { 
+            font-weight: 800; 
+            font-size: 22px; 
+            cursor: pointer; 
+            letter-spacing: 1px;
+            color: var(--deep-green);
+        }
 
-        .nav-controls { display: flex; gap: 20px; }
+        .nav-controls { display: flex; gap: 12px; }
 
         .nav-btn {
             background: none; border: none; color: var(--apple-black);
-            font-size: 13px; font-weight: 400; cursor: pointer;
-            opacity: 0.8; transition: opacity 0.3s ease;
-            display: flex; align-items: center; gap: 6px;
+            font-size: 14px; font-weight: 500; cursor: pointer;
+            padding: 8px 16px; border-radius: 12px;
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .nav-btn:hover { opacity: 1; }
+        .nav-btn:hover { background: rgba(212, 175, 55, 0.1); color: var(--deep-green); }
 
-        /* --- Glass Components --- */
+        /* --- Popups --- */
         .glass-popup {
-            position: fixed; top: 60px; right: 22px; width: 280px;
+            position: fixed; top: 74px; right: 24px; width: 300px;
             background: var(--foggy-glass); backdrop-filter: blur(40px) saturate(150%);
             -webkit-backdrop-filter: blur(40px) saturate(150%);
-            border: 1px solid var(--glass-border); border-radius: 18px;
-            padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--glass-border); border-radius: 22px;
+            padding: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             display: none; z-index: 1100;
+            transform-origin: top right;
+            animation: popupScale 0.3s ease-out;
+        }
+
+        @keyframes popupScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .popup-active { display: block !important; }
 
+        .popup-link {
+            display: block; padding: 14px 18px; color: var(--apple-black); text-decoration: none;
+            font-size: 15px; font-weight: 500; border-radius: 14px; transition: var(--transition);
+        }
+        .popup-link:hover { background: rgba(19, 136, 8, 0.1); color: var(--deep-green); padding-left: 24px; }
+
+        /* --- Glass Panels --- */
         .glass-panel {
-            background: var(--foggy-glass); backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid var(--glass-border); border-radius: 30px;
-            padding: 80px 40px; width: 100%; max-width: 980px;
-            margin: 40px 0; box-shadow: 0 15px 45px rgba(0,0,0,0.03);
-            opacity: 0; transform: translateY(40px); transition: all 1s ease-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--foggy-glass); backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border); border-radius: 32px;
+            padding: 60px 40px; width: 100%; max-width: 900px;
+            margin: 20px 0; box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+            opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-panel.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- Hero --- */
+        /* --- Hero Section --- */
         section {
-            min-height: 100vh; padding: 100px 22px;
+            min-height: 100vh; padding: 120px 24px;
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
         }
 
-        .hero-title { font-size: clamp(36px, 7vw, 72px); font-weight: 700; margin-bottom: 15px; letter-spacing: -0.01em; }
-        .hero-tagline { font-size: clamp(18px, 3.5vw, 24px); font-weight: 600; color: var(--tracxi-green); margin-bottom: 40px; }
-
-        .cta-box { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .app-icon { width: 100px; height: 100px; border-radius: 22px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .apple-btn {
-            background: var(--apple-black); color: white; padding: 14px 28px;
-            border-radius: 980px; text-decoration: none; font-size: 17px;
-            font-weight: 600; transition: var(--transition);
+        .intro-word {
+            font-size: clamp(80px, 18vw, 220px);
+            font-weight: 900;
+            color: var(--deep-green);
+            letter-spacing: -2px;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
         }
 
-        /* --- Specific Section Layouts --- */
-        .section-header { font-size: 40px; font-weight: 700; margin-bottom: 25px; }
-        .policy-body { font-size: 16px; color: var(--apple-gray); line-height: 1.8; text-align: left; }
+        .hero-title { font-size: clamp(32px, 6vw, 64px); font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
+        .hero-tagline { 
+            font-size: clamp(18px, 3vw, 22px); font-weight: 500; 
+            color: var(--tracxi-green); margin-bottom: 40px; 
+            text-transform: uppercase; letter-spacing: 4px;
+        }
 
-        .text-saffron { color: var(--indian-saffron); font-weight: 900; }
-        .text-green { color: var(--indian-green); font-weight: 900; }
+        .app-icon { 
+            width: 120px; height: 120px; border-radius: 28px; 
+            box-shadow: 0 30px 60px rgba(19, 136, 8, 0.2); 
+            margin-bottom: 20px;
+            border: 4px solid white;
+        }
 
-        .countdown-grid { display: flex; gap: 25px; justify-content: center; margin: 35px 0; }
-        .timer-unit { display: flex; flex-direction: column; }
-        .timer-val { font-size: 44px; font-weight: 700; }
-        .timer-label { font-size: 11px; text-transform: uppercase; color: var(--apple-gray); font-weight: 600; }
+        .gold-btn {
+            background: linear-gradient(135deg, var(--deep-green), #1a7a0e);
+            color: white; padding: 18px 40px;
+            border-radius: 100px; text-decoration: none; font-size: 18px;
+            font-weight: 600; transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(19, 136, 8, 0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
-        /* --- Professional Footer --- */
+        .gold-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(19, 136, 8, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* --- Components --- */
+        .section-header { font-size: 42px; font-weight: 800; margin-bottom: 24px; color: var(--deep-green); }
+        
+        .countdown-grid { display: flex; gap: 20px; justify-content: center; margin: 40px 0; }
+        .timer-unit { 
+            background: white; padding: 20px; border-radius: 20px; min-width: 100px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+        }
+        .timer-val { font-size: 48px; font-weight: 800; color: var(--tracxi-gold); display: block; }
+        .timer-label { font-size: 12px; text-transform: uppercase; color: var(--apple-gray); font-weight: 700; letter-spacing: 1px; }
+
+        /* --- Footer --- */
         footer {
-            padding: 80px 22px 40px;
-            background: rgba(245, 245, 247, 0.9);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 100px 24px 50px;
+            background: white;
+            border-top: 1px solid var(--glass-border);
         }
 
         .footer-grid {
-            width: 100%;
-            max-width: 1024px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 40px;
-            text-align: left;
-            margin-bottom: 60px;
+            width: 100%; max-width: 1100px; margin: 0 auto 80px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px; text-align: left;
         }
 
-        .footer-col h4 {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--apple-black);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-col a {
-            display: block;
-            font-size: 12px;
-            color: var(--apple-gray);
-            text-decoration: none;
-            margin-bottom: 8px;
-            transition: color 0.2s;
-        }
-
-        .footer-col a:hover { color: var(--tracxi-green); }
+        .footer-col h4 { font-size: 14px; font-weight: 700; color: var(--deep-green); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-col a { display: block; font-size: 14px; color: var(--apple-gray); text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
+        .footer-col a:hover { color: var(--tracxi-gold); transform: translateX(5px); }
 
         .footer-bottom {
-            width: 100%;
-            max-width: 1024px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            text-align: left;
-            font-size: 11px;
-            color: var(--apple-gray);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            width: 100%; max-width: 1100px; margin: 0 auto; padding-top: 30px;
+            border-top: 1px solid #eee; font-size: 12px; color: var(--apple-gray);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
         }
 
-        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 300px; overflow-y: auto; }
-        .popup-link {
-            display: block; padding: 12px; color: var(--apple-black); text-decoration: none;
-            font-size: 14px; font-weight: 500; border-radius: 10px; transition: background 0.2s;
-        }
-        .popup-link:hover { background: rgba(0,0,0,0.05); }
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 400px; overflow-y: auto; }
 
         @media (max-width: 768px) {
             .nav-btn span { display: none; }
-            .hero-title { font-size: 42px; }
-            .countdown-grid { gap: 15px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
-            .footer-bottom { justify-content: center; text-align: center; }
+            .hero-title { font-size: 36px; }
+            .intro-word { font-size: 100px; }
+            .countdown-grid { gap: 10px; }
+            .timer-unit { min-width: 70px; padding: 10px; }
+            .timer-val { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="particle-canvas"></canvas>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
     <nav>
         <div class="nav-content">
             <div class="logo" onclick="window.scrollTo(0,0)">TRACXI</div>
             <div class="nav-controls">
                 <button class="nav-btn" onclick="togglePopup('menu-popup')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                     <span>Menu</span>
                 </button>
                 <button class="nav-btn" onclick="togglePopup('lang-popup')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     <span>Translate</span>
                 </button>
-                <a href="#contact" class="nav-btn" style="text-decoration: none;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.38-2.38a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <a href="#contact" class="nav-btn" style="text-decoration: none; background: var(--tracxi-gold); color: white; border-radius: 100px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.38-2.38a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     <span>Contact</span>
                 </a>
             </div>
@@ -263,14 +264,11 @@
     <!-- Popups -->
     <div class="glass-popup" id="menu-popup">
         <a href="#home" class="popup-link" onclick="togglePopup('menu-popup')">Home</a>
-        <a href="#about" class="popup-link" onclick="togglePopup('menu-popup')">About</a>
+        <a href="#about" class="popup-link" onclick="togglePopup('menu-popup')">About Us</a>
         <a href="#projects" class="popup-link" onclick="togglePopup('menu-popup')">Projects</a>
         <a href="#contact" class="popup-link" onclick="togglePopup('menu-popup')">Contact</a>
-        <div style="height: 1px; background: rgba(0,0,0,0.1); margin: 10px 0;"></div>
+        <div style="height: 1px; background: rgba(0,0,0,0.05); margin: 8px 12px;"></div>
         <a href="#privacy" class="popup-link" onclick="togglePopup('menu-popup')">Privacy Policy</a>
-        <a href="#security" class="popup-link" onclick="togglePopup('menu-popup')">Security Policy</a>
-        <a href="#cookie" class="popup-link" onclick="togglePopup('menu-popup')">Cookie Policy</a>
-        <a href="#ip" class="popup-link" onclick="togglePopup('menu-popup')">IP Policy</a>
         <a href="#terms" class="popup-link" onclick="togglePopup('menu-popup')">Terms of Service</a>
     </div>
 
@@ -280,14 +278,13 @@
 
     <!-- Home -->
     <section id="home">
-        <div class="intro-container">
-            <div class="intro-word">TRACXI</div>
-        </div>
+        <div class="intro-word">TRACXI</div>
         <h1 class="hero-title" data-key="hero_main">Logistics Is the Main Goal.</h1>
-        <p class="hero-tagline" data-key="hero_sub">Transportation Simplified</p>
-        <div class="cta-box">
+        <p class="hero-tagline" data-key="hero_sub">Transportation Redefined</p>
+        <div style="margin-top: 20px;">
             <img src="https://th.bing.com/th/id/OIP.VE-XjdOywRWVHVdbbn-VdAHaHa?w=108&h=108&c=1&bgcl=4e9ccf&r=0&o=7&pid=ImgRC&rm=3" alt="TRACXI Logo" class="app-icon">
-            <a href="https://play.google.com/store/apps/details?id=com.vmax.tracxi" target="_blank" class="apple-btn" data-key="btn_download">Download Our App</a>
+            <br>
+            <a href="https://play.google.com/store/apps/details?id=com.vmax.tracxi" target="_blank" class="gold-btn" data-key="btn_download">Download Experience</a>
         </div>
     </section>
 
@@ -295,88 +292,52 @@
     <section id="about">
         <div class="glass-panel scroll-reveal">
             <h2 class="section-header" data-key="about_title">Simplified Connect</h2>
-            <p style="font-size: 21px; font-weight: 500; max-width: 700px; margin: 0 auto 30px;" data-key="about_sub">Direct vehicle owner and load provider coordination across all Indian states.</p>
-            <p style="font-size: 17px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;" data-key="about_desc">TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.</p>
+            <p style="font-size: 22px; font-weight: 600; color: var(--tracxi-gold); margin-bottom: 25px;" data-key="about_sub">Nationwide Coordination for the Modern Transporter.</p>
+            <p style="font-size: 18px; color: var(--apple-gray); line-height: 1.8; max-width: 750px; margin: 0 auto;" data-key="about_desc">TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays. Built on the pillars of speed, transparency, and reliability.</p>
         </div>
     </section>
 
     <!-- Projects -->
     <section id="projects">
-        <div class="glass-panel scroll-reveal">
-            <img src="https://www.vcxmart.com/logo.png" style="width: 140px; margin-bottom: 20px;">
-            <h2 class="section-header"><span class="text-saffron">VCX</span> <span class="text-black">MART</span></h2>
-            <p style="font-size: 19px; font-weight: 500;" data-key="vcx_sub">Digital Infrastructure for Decentralized Commerce.</p>
-            <p style="font-size: 16px; color: var(--indian-green); font-weight: 600; margin: 15px 0;" data-key="vcx_origin">INDIAN INNOVATION HUB</p>
-            <p style="font-size: 16px; color: var(--apple-gray); max-width: 600px; margin: 0 auto;" data-key="vcx_desc">Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.</p>
-            <a href="https://www.vcxmart.com" target="_blank" class="apple-btn" style="background: var(--tracxi-green); margin-top: 40px;" data-key="btn_visit">Visit Platform</a>
+        <div class="glass-panel scroll-reveal" style="border-top: 6px solid var(--tracxi-gold);">
+            <img src="https://www.vcxmart.com/logo.png" style="width: 120px; margin-bottom: 20px; filter: grayscale(1) brightness(0.5);">
+            <h2 class="section-header">VCX <span style="color: var(--tracxi-gold);">MART</span></h2>
+            <p style="font-size: 20px; font-weight: 500; margin-bottom: 20px;" data-key="vcx_sub">Digital Infrastructure for Decentralized Commerce.</p>
+            <p style="color: var(--tracxi-green); font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;" data-key="vcx_origin">GLOBAL INNOVATION HUB</p>
+            <p style="font-size: 16px; color: var(--apple-gray); max-width: 600px; margin: 0 auto 30px;" data-key="vcx_desc">Our flagship project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.</p>
+            <a href="https://www.vcxmart.com" target="_blank" class="gold-btn" style="background: var(--apple-black);" data-key="btn_visit">Explore Platform</a>
         </div>
 
-        <div class="glass-panel scroll-reveal" style="border-style: dashed;">
-            <div style="font-size: 40px; margin-bottom: 20px;">🔒</div>
-            <h2 class="section-header" data-key="reveal_title">NEW PROJECT REVEAL</h2>
+        <div class="glass-panel scroll-reveal" style="border: 2px dashed var(--tracxi-gold); background: rgba(212, 175, 55, 0.03);">
+            <div style="font-size: 50px; margin-bottom: 10px;">✨</div>
+            <h2 class="section-header" data-key="reveal_title" style="color: var(--tracxi-gold);">FUTURE UNVEILED</h2>
             <div class="countdown-grid">
                 <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label" data-key="days">Days</span></div>
                 <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label" data-key="hours">Hours</span></div>
                 <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label" data-key="mins">Mins</span></div>
                 <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label" data-key="secs">Secs</span></div>
             </div>
-            <p style="font-weight: 700; font-size: 18px; color: var(--tracxi-green);" data-key="launch_date">LAUNCHING MAY 12, 2026</p>
+            <p style="font-weight: 800; font-size: 20px; color: var(--deep-green); letter-spacing: 2px;" data-key="launch_date">LAUNCHING MAY 12, 2026</p>
         </div>
     </section>
 
     <!-- Contact -->
     <section id="contact">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="contact_title">Contact</h2>
-            <p style="margin-bottom: 30px; font-size: 21px; font-weight: 500;" data-key="contact_sub">Bodepudi Suresh Infrastructure | Headquarters: India</p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="tel:+918639222877" class="apple-btn" data-key="btn_call">Call Infrastructure Dept</a>
-            </div>
+            <h2 class="section-header" data-key="contact_title">Contact Infrastructure</h2>
+            <p style="margin-bottom: 40px; font-size: 20px; font-weight: 500; color: var(--apple-gray);" data-key="contact_sub">Bodepudi Suresh Infrastructure | Global Node: India</p>
+            <a href="tel:+918639222877" class="gold-btn" data-key="btn_call">Speak with Support</a>
         </div>
     </section>
 
-    <!-- Policy Sections -->
-    <section id="privacy">
+    <!-- Policies (Consolidated View) -->
+    <section id="privacy" style="background: rgba(0,0,0,0.02);">
         <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="privacy_title">Privacy Policy</h2>
-            <div class="policy-body">
-                <p data-key="privacy_desc">TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers. By using the TRACXI application, you consent to our data handling practices designed for logistics efficiency.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="security">
-        <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="security_title">Security Policy</h2>
-            <div class="policy-body">
-                <p data-key="security_desc">Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals. Security audits are performed regularly to protect the TRACXI infrastructure from unauthorized access or data breaches.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="cookie">
-        <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="cookie_title">Cookie Policy</h2>
-            <div class="policy-body">
-                <p data-key="cookie_desc">We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform. By continuing to use TRACXI, you accept our use of strictly necessary cookies to ensure optimal app performance.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="ip">
-        <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="ip_title">IP Policy</h2>
-            <div class="policy-body">
-                <p data-key="ip_desc">All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019). Unauthorized reproduction, scraping, or reverse engineering of the TRACXI platform is strictly prohibited and subject to legal action.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="terms">
-        <div class="glass-panel scroll-reveal">
-            <h2 class="section-header" data-key="terms_title">Terms of Service</h2>
-            <div class="policy-body">
-                <p data-key="terms_desc">Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer; we are not responsible for the direct contractual agreements between transporters and load providers. Misuse of contact information or fraudulent listings will result in permanent account termination.</p>
+            <h2 class="section-header" data-key="privacy_title">Trust & Transparency</h2>
+            <div style="text-align: left; color: var(--apple-gray); font-size: 15px; line-height: 1.8;">
+                <p style="margin-bottom: 20px;" data-key="privacy_desc"><strong>Privacy:</strong> TRACXI values your privacy. We collect location data purely to facilitate logistics matching. Your data is encrypted and is never shared with third-party advertisers.</p>
+                <p style="margin-bottom: 20px;" data-key="security_desc"><strong>Security:</strong> Our platform implements end-to-end encryption. Security audits are performed regularly to protect the TRACXI infrastructure.</p>
+                <p data-key="ip_desc"><strong>IP:</strong> All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019).</p>
             </div>
         </div>
     </section>
@@ -398,23 +359,22 @@
             <div class="footer-col">
                 <h4>Legal</h4>
                 <a href="#privacy" data-key="privacy_title">Privacy Policy</a>
-                <a href="#security" data-key="security_title">Security Policy</a>
-                <a href="#cookie" data-key="cookie_title">Cookie Policy</a>
-                <a href="#ip" data-key="ip_title">IP Policy</a>
                 <a href="#terms" data-key="terms_title">Terms of Service</a>
+                <a href="#privacy">Cookie Policy</a>
+                <a href="#privacy">IP Policy</a>
             </div>
             <div class="footer-col">
-                <h4 data-key="foot_support">Support</h4>
-                <a href="tel:+918639222877" data-key="btn_call">Call Support</a>
-                <a href="javascript:void(0)">India Node</a>
+                <h4 data-key="foot_support">Network</h4>
+                <a href="tel:+918639222877" data-key="btn_call">India Node</a>
+                <a href="javascript:void(0)">Global Infrastructure</a>
             </div>
         </div>
         <div class="footer-bottom">
             <span data-key="foot_copy">Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.</span>
-            <div style="display:flex; gap: 20px;">
-                <span>India</span>
-                <span style="opacity:0.4;">|</span>
-                <span data-key="global_node">Global Node</span>
+            <div style="display:flex; gap: 20px; font-weight: 600;">
+                <span style="color: var(--tracxi-green);">INDIA</span>
+                <span style="opacity:0.2;">|</span>
+                <span data-key="global_node" style="color: var(--tracxi-gold);">GLOBAL NODE</span>
             </div>
         </div>
     </footer>
@@ -423,157 +383,46 @@
         // --- TRANSLATION DATA ---
         const translations = {
             en: {
-                hero_main: "Logistics Is the Main Goal.", hero_sub: "Transportation is the main goal.",
-                btn_download: "Download Our App", about_title: "Simplified Connect",
-                about_sub: "Direct vehicle owner and load provider coordination across all Indian states.",
+                hero_main: "Logistics Is the Main Goal.", hero_sub: "Transportation Redefined",
+                btn_download: "Download & Experience", about_title: "Simplified Connect",
+                about_sub: "Nationwide Coordination for the Modern Transporter.",
                 about_desc: "TRACXI eliminates fragmentation in the transport sector. Browse Lorries, Trailers, Tankers, and Containers in real-time without fees or middleman delays.",
-                vcx_sub: "Digital Infrastructure for Decentralized Commerce.", vcx_origin: "INDIAN INNOVATION HUB",
-                vcx_desc: "Our other project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.",
-                btn_visit: "Visit Platform", reveal_title: "NEW PROJECT REVEAL", launch_date: "LAUNCHING MAY 12, 2026",
+                vcx_sub: "Digital Infrastructure for Decentralized Commerce.", vcx_origin: "GLOBAL INNOVATION HUB",
+                vcx_desc: "Our flagship project designed to scale modern commerce ecosystems globally. Robust, secure, and built for the next generation of trade.",
+                btn_visit: "Explore Platform", reveal_title: "FUTURE UNVEILED", launch_date: "LAUNCHING MAY 12, 2026",
                 days: "Days", hours: "Hours", mins: "Mins", secs: "Secs",
-                contact_title: "Contact", contact_sub: "Bodepudi Suresh Infrastructure | Headquarters: India",
-                btn_call: "Call Support",
-                privacy_title: "Privacy Policy", security_title: "Security Policy", cookie_title: "Cookie Policy", ip_title: "IP Policy", terms_title: "Terms of Service",
-                privacy_desc: "TRACXI values your privacy. We collect location data and contact details purely to facilitate logistics matching between load providers and vehicle owners. Your data is encrypted and is never shared with third-party advertisers.",
-                security_desc: "Our platform implements end-to-end encryption for all communication. We verify listings to ensure a secure environment for transport professionals.",
-                cookie_desc: "We use essential cookies to maintain your session and remember your language preferences. No tracking or marketing cookies are utilized on our platform.",
-                ip_desc: "All software, brand elements, and underlying logistics algorithms are the exclusive Intellectual Property of Bodepudi Suresh / TRACXI (2019).",
-                terms_desc: "Users must provide accurate information regarding vehicle availability and load requirements. TRACXI serves as a connectivity layer.",
-                foot_nav: "Navigation", foot_eco: "Ecosystem", foot_support: "Support",
-                foot_copy: "Copyright © 2019 - 2026 TRACXI. All rights reserved. Bodepudi Suresh Infrastructure.", global_node: "Global Node"
+                contact_title: "Contact Infrastructure", contact_sub: "Bodepudi Suresh Infrastructure | Global Node: India",
+                btn_call: "Speak with Support",
+                privacy_title: "Trust & Transparency", terms_title: "Terms of Service",
+                foot_nav: "Navigation", foot_eco: "Ecosystem", foot_support: "Network",
+                foot_copy: "Copyright © 2019 - 2026 TRACXI. Bodepudi Suresh Infrastructure.", global_node: "GLOBAL NODE"
             },
             hi: {
-                hero_main: "लॉजिस्टिक्स मुख्य लक्ष्य है।", hero_sub: "परिवहन मुख्य लक्ष्य है।",
-                btn_download: "ऐप डाउनलोड करें", about_title: "सरल कनेक्शन",
-                about_sub: "सभी भारतीय राज्यों में वाहन मालिक और लोड प्रदाता का सीधा समन्वय।",
-                about_desc: "TRACXI परिवहन क्षेत्र में विखंडन को समाप्त करता है। बिना किसी शुल्क के वास्तविक समय में लॉरी, ट्रेलर, टैंकर और कंटेनर खोजें।",
-                vcx_sub: "विकेंद्रीकृत वाणिज्य के लिए डिजिटल बुनियादी ढांचा।", vcx_origin: "भारतीय नवाचार केंद्र",
-                vcx_desc: "हमारा दूसरा प्रोजेक्ट वैश्विक स्तर पर आधुनिक वाणिज्य पारिस्थितिकी तंत्र को बढ़ाने के लिए डिज़ाइन किया गया है।",
-                btn_visit: "प्लेटफ़ॉर्म देखें", reveal_title: "नई परियोजना का खुलासा", launch_date: "12 मई, 2026 को लॉन्च",
+                hero_main: "लॉजिस्टिक्स मुख्य लक्ष्य है।", hero_sub: "प्रीमियम परिवहन पुनर्परिभाषित",
+                btn_download: "डाउनलोड करें", about_title: "सरल कनेक्शन",
+                about_sub: "आधुनिक ट्रांसपोर्टर के लिए देशव्यापी समन्वय।",
+                about_desc: "TRACXI परिवहन क्षेत्र में विखंडन को समाप्त करता है। बिना किसी शुल्क के वास्तविक समय में लॉरी, ट्रेलर और कंटेनर खोजें।",
+                vcx_sub: "विकेंद्रीकृत वाणिज्य के लिए डिजिटल बुनियादी ढांचा।", vcx_origin: "वैश्विक नवाचार केंद्र",
+                btn_visit: "प्लेटफ़ॉर्म देखें", reveal_title: "भविष्य का अनावरण", launch_date: "12 मई, 2026 को लॉन्च",
                 days: "दिन", hours: "घंटे", mins: "मिनट", secs: "सेकंड",
-                contact_title: "संपर्क", contact_sub: "बोडेपुडी सुरेश इंफ्रास्ट्रक्चर | मुख्यालय: भारत",
-                btn_call: "सपोर्ट कॉल करें",
-                privacy_title: "गोपनीयता नीति", security_title: "सुरक्षा नीति", cookie_title: "कुकी नीति", ip_title: "आईपी नीति", terms_title: "सेवा की शर्तें",
-                privacy_desc: "TRACXI आपकी गोपनीयता को महत्व देता है। हम लोड प्रदाताओं और वाहन मालिकों के बीच लॉजिस्टिक्स मिलान की सुविधा के लिए स्थान डेटा एकत्र करते हैं।",
-                security_desc: "हमारा प्लेटफ़ॉर्म सभी संचार के लिए एंड-टू-एंड एन्क्रिप्शन लागू करता है। हम परिवहन पेशेवरों के लिए सुरक्षित वातावरण सुनिश्चित करते हैं।",
-                cookie_desc: "हम आपके सत्र को बनाए रखने और आपकी भाषा प्राथमिकताओं को याद रखने के लिए आवश्यक कुकीज़ का उपयोग करते हैं।",
-                ip_desc: "सभी सॉफ्टवेयर, ब्रांड तत्व और अंतर्निहित लॉजिस्टिक्स एल्गोरिदम बोडेपुडी सुरेश / TRACXI (2019) की विशेष बौद्धिक संपदा हैं।",
-                terms_desc: "उपयोगकर्ताओं को वाहन की उपलब्धता और लोड आवश्यकताओं के संबंध में सटीक जानकारी प्रदान करनी चाहिए।",
-                foot_nav: "नेविगेशन", foot_eco: "पारिस्थितिकी तंत्र", foot_support: "सहायता",
-                foot_copy: "कॉपीराइट © 2019 - 2026 TRACXI। सर्वाधिकार सुरक्षित। बोडेपुडी सुरेश इंफ्रास्ट्रक्चर।", global_node: "ग्लोबल नोड"
+                contact_title: "संपर्क बुनियादी ढांचा", btn_call: "सहायता से बात करें",
+                foot_nav: "नेविगेशन", global_node: "ग्लोबल नोड"
             },
             te: {
-                hero_main: "లాజిస్టిక్స్ ప్రధాన లక్ష్యం.", hero_sub: "రవాణా ప్రధాన లక్ష్యం.",
-                btn_download: "యాప్‌ను డౌన్‌లోడ్ చేయండి", about_title: "సరళమైన అనుసంధానం",
-                about_sub: "అన్ని భారతీయ రాష్ట్రాలలో వాహన యజమాని మరియు లోడ్ ప్రొవైడర్ ప్రత్యక్ష సమన్వయం.",
-                about_desc: "TRACXI రవాణా రంగంలో విచ్ఛిన్నతను తొలగిస్తుంది. ఎటువంటి రుసుము లేకుండా నిజ సమయంలో లారీలు, ట్రైలర్లు, ట్యాంకర్లు మరియు కంటైనర్‌లను బ్రౌజ్ చేయండి.",
-                vcx_sub: "వికేంద్రీకృత వాణిజ్యం కోసం డిజిటల్ మౌలిక సదుపాయాలు.", vcx_origin: "భారతీయ ఆవిష్కరణ కేంద్రం",
-                vcx_desc: "మా ఇతర ప్రాజెక్ట్ ప్రపంచవ్యాప్తంగా ఆధునిక వాణిజ్య పర్యావరణ వ్యవస్థలను స్కేల్ చేయడానికి రూపొందించబడింది.",
-                btn_visit: "ప్లాట్‌ఫారమ్‌ను సందర్శించండి", reveal_title: "కొత్త ప్రాజెక్ట్ వెల్లడి", launch_date: "మే 12, 2026న ప్రారంభం",
+                hero_main: "లాజిస్టిక్స్ ప్రధాన లక్ష్యం.", hero_sub: "ప్రీమియం రవాణా పునర్నిర్వచించబడింది",
+                btn_download: "డౌన్‌లోడ్ చేయండి", about_title: "సరళమైన అనుసంధానం",
+                about_sub: "ఆధునిక రవాణాదారు కోసం దేశవ్యాప్త సమన్వయం.",
+                btn_visit: "ప్లాట్‌ఫారమ్‌ను అన్వేషించండి", reveal_title: "భవిష్యత్తు ఆవిష్కరణ", launch_date: "మే 12, 2026న ప్రారంభం",
                 days: "రోజులు", hours: "గంటలు", mins: "నిమిషాలు", secs: "సెకన్లు",
-                contact_title: "సంప్రదించండి", contact_sub: "బోడెపూడి సురేష్ ఇన్ఫ్రాస్ట్రక్చర్ | ప్రధాన కార్యాలయం: భారతదేశం",
-                btn_call: "మద్దతు కోసం కాల్ చేయండి",
-                privacy_title: "గోప్యతా విధానం", security_title: "భద్రతా విధానం", cookie_title: "కుకీ విధానం", ip_title: "IP విధానం", terms_title: "సేవా నిబంధనలు",
-                privacy_desc: "TRACXI మీ గోప్యతను గౌరవిస్తుంది. లోడ్ ప్రొవైడర్లు మరియు వాహన యజమానుల మధ్య లాజిస్టిక్స్ మ్యాచింగ్‌ను సులభతరం చేయడానికి మేము స్థాన డేటాను సేకరిస్తాము.",
-                security_desc: "మా ప్లాట్‌ఫారమ్ అన్ని కమ్యూనికేషన్ల కోసం ఎండ్-టు-ఎండ్ ఎన్క్రిప్షన్‌ను అమలు చేస్తుంది.",
-                cookie_desc: "మేము మీ సెషన్‌ను నిర్వహించడానికి మరియు మీ భాషా ప్రాధాన్యతలను గుర్తుంచుకోవడానికి అవసరమైన కుకీలను ఉపయోగిస్తాము.",
-                ip_desc: "అన్ని సాఫ్ట్‌వేర్, బ్రాండ్ ఎలిమెంట్స్ మరియు లాజిస్టిక్స్ అల్గారిథమ్స్ బోడెపూడి సురేష్ / TRACXI (2019) యొక్క ప్రత్యేక మేధో సంపత్తి.",
-                terms_desc: "వినియోగదారులు వాహన లభ్యత మరియు లోడ్ అవసరాలకు సంబంధించి ఖచ్చితమైన సమాచారాన్ని అందించాలి.",
-                foot_nav: "నావిగేషన్", foot_eco: "పర్యావరణ వ్యవస్థ", foot_support: "మద్దతు",
-                foot_copy: "కాపీరైట్ © 2019 - 2026 TRACXI. అన్ని హక్కులు ప్రత్యేకించబడ్డాయి. బోడెపూడి సురేష్ ఇన్ఫ్రాస్ట్రక్చర్.", global_node: "గ్లోబల్ నోడ్"
-            },
-            ta: {
-                hero_main: "தளவாடங்கள் முக்கிய குறிக்கோள்.", hero_sub: "போக்குவரத்தே முக்கிய குறிக்கோள்.",
-                btn_download: "பயன்பாட்டைப் பதிவிறக்கவும்", about_title: "எளிமையான இணைப்பு",
-                about_sub: "இந்திய மாநிலங்கள் முழுவதும் வாகன உரிமையாளர் மற்றும் சுமை வழங்குநர் நேரடி ஒருங்கிணைப்பு.",
-                about_desc: "TRACXI போக்குவரத்து துறையில் பிளவுகளை நீக்குகிறது. நிகழ்நேரத்தில் லாரிகள், டிரெய்லர்கள் மற்றும் கொள்கலன்களை உலாவவும்.",
-                vcx_sub: "பரவலாக்கப்பட்ட வர்த்தகத்திற்கான டிஜிட்டல் உள்கட்டமைப்பு.", vcx_origin: "இந்திய கண்டுபிடிப்பு மையம்",
-                btn_visit: "தளத்தைப் பார்வையிடவும்", reveal_title: "புதிய திட்ட வெளிப்பாடு", launch_date: "மே 12, 2026 அன்று தொடங்குகிறது",
-                days: "நாட்கள்", hours: "மணிநேரம்", mins: "நிமிடம்", secs: "வினாடி",
-                privacy_title: "தனியுரிமைக் கொள்கை", security_title: "பாதுகாப்புக் கொள்கை", cookie_title: "குக்கீ கொள்கை", ip_title: "IP கொள்கை", terms_title: "சேவை விதிமுறைகள்",
-                foot_nav: "வழிசெலுத்தல்", foot_eco: "சுற்றுச்சூழல்", foot_support: "ஆதரவு"
-            },
-            kn: {
-                hero_main: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಮುಖ್ಯ ಗುರಿ.", hero_sub: "ಸಾರಿಗೆಯೇ ಮುಖ್ಯ ಗುರಿ.",
-                btn_download: "ಅಪ್ಲಿಕೇಶನ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", about_title: "ಸರಳೀಕೃತ ಸಂಪರ್ಕ",
-                about_sub: "ಭಾರತದಾದ್ಯಂತ ವಾಹನ ಮಾಲೀಕರು ಮತ್ತು ಲೋಡ್ ಪೂರೈಕೆದಾರರ ನೇರ ಸಮನ್ವಯ.",
-                btn_visit: "ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಭೇಟಿ ಮಾಡಿ", reveal_title: "ಹೊಸ ಯೋಜನೆ ಅನಾವರಣ", launch_date: "ಮೇ 12, 2026 ರಂದು ಪ್ರಾರಂಭ",
-                days: "ದಿನಗಳು", hours: "ಗಂಟೆಗಳು", mins: "ನಿಮಿಷ", secs: "ಸೆಕೆಂಡ್",
-                privacy_title: "ಗೌಪ್ಯತಾ ನೀತಿ", security_title: "ಭದ್ರತಾ ನೀತಿ", cookie_title: "ಕುಕೀ ನೀತಿ", ip_title: "IP ನೀತಿ", terms_title: "ಸೇವಾ ನಿಯಮಗಳು",
-                foot_nav: "ನ್ಯಾವಿಗೇಷನ್", foot_eco: "ಪರಿಸರ ವ್ಯವಸ್ಥೆ", foot_support: "ಬೆಂಬಲ"
-            },
-            ml: {
-                hero_main: "ലോജിസ്റ്റിക്സ് ആണ് പ്രധാന ലക്ഷ്യം.", hero_sub: "ഗതാഗതമാണ് പ്രധാന ലക്ഷ്യം.",
-                btn_download: "ആപ്പ് ഡൗൺലോഡ് ചെയ്യുക", about_title: "ലളിതമായ കണക്ട്",
-                btn_visit: "പ്ലാറ്റ്‌ഫോം സന്ദർശിക്കുക", reveal_title: "പുതിയ പദ്ധതി വെളിപ്പെടുത്തൽ", launch_date: "മേയ് 12, 2026 ന് സമാരംഭിക്കുന്നു",
-                days: "ദിവസങ്ങൾ", hours: "മണിക്കൂർ", mins: "മിനിറ്റ്", secs: "സെക്കൻഡ്",
-                privacy_title: "സ്വകാര്യതാ നയം", security_title: "സുരക്ഷാ നയം", cookie_title: "കുക്കി നയം", ip_title: "IP നയം", terms_title: "സേവന നിബന്ധനകൾ",
-                foot_nav: "നാവിഗേഷൻ", foot_eco: "ഇക്കോസിസ്റ്റം", foot_support: "പിന്തുണ"
-            },
-            bn: {
-                hero_main: "লজিস্টিকস মূল লক্ষ্য।", hero_sub: "পরিবহন মূল লক্ষ্য।",
-                btn_download: "অ্যাপ ডাউনলোড করুন", about_title: "সরলীকৃত সংযোগ",
-                btn_visit: "প্ল্যাটফর্ম দেখুন", reveal_title: "নতুন প্রকল্প উন্মোচন", launch_date: "১২ মে, ২০২৬ এ চালু হচ্ছে",
-                days: "দিন", hours: "ঘন্টা", mins: "মিনিট", secs: "সেকেন্ড",
-                privacy_title: "গোপনীয়তা নীতি", security_title: "নিরাপত্তা নীতি", cookie_title: "কুকি নীতি", ip_title: "আইপি নীতি", terms_title: "পরিষেবার শর্তাবলী",
-                foot_nav: "নেভিগেশন", foot_eco: "ইকোসিস্টেম", foot_support: "সহায়তা"
-            },
-            gu: {
-                hero_main: "લોજિસ્ટિક્સ મુખ્ય ધ્યેય છે.", hero_sub: "પરિવહન મુખ્ય ધ્યેય છે.",
-                btn_download: "એપ્લિકેશન ડાઉનલોડ કરો", about_title: "સરળીકૃત કનેક્ટ",
-                btn_visit: "પ્લેટફોર્મની મુલાકાત લો", reveal_title: "નવી પ્રોજેક્ટ જાહેરાત", launch_date: "12 મે, 2026 ના રોજ લોન્ચ",
-                days: "દિવસો", hours: "કલાકો", mins: "મિનિટ", secs: "સેકન્ડ",
-                privacy_title: "ગોપનીયતા નીતિ", security_title: "સુરક્ષા નીતિ", cookie_title: "કૂકી નીતિ", ip_title: "IP નીતિ", terms_title: "સેવાની શરતો",
-                foot_nav: "નેવિગેશન", foot_eco: "ઇકોસિસ્ટમ", foot_support: "સપોર્ટ"
-            },
-            mr: {
-                hero_main: "लॉजिस्टिक हे मुख्य ध्येय आहे.", hero_sub: "वाहतूक हे मुख्य ध्येय आहे.",
-                btn_download: "अॅप डाउनलोड करा", about_title: "सरलीकृत कनेक्ट",
-                btn_visit: "प्लॅटफॉर्मला भेट द्या", reveal_title: "नवीन प्रकल्पाचे अनावरण", launch_date: "१२ मे, २०२६ रोजी लाँच",
-                days: "दिवस", hours: "तास", mins: "मिनिटे", secs: "सेकंद",
-                privacy_title: "गोपनीयता धोरण", security_title: "सुरक्षा धोरण", cookie_title: "कुकी धोरण", ip_title: "आयपी धोरण", terms_title: "सेवा अटी",
-                foot_nav: "नेव्हिगेशन", foot_eco: "इकोसिस्टम", foot_support: "सपोर्ट"
-            },
-            pa: {
-                hero_main: "ਲੌਜਿਸਟਿਕਸ ਮੁੱਖ ਟੀਚਾ ਹੈ।", hero_sub: "ਆਵਾਜਾਈ ਮੁੱਖ ਟੀਚਾ ਹੈ।",
-                btn_download: "ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ", about_title: "ਸਰਲੀਕ੍ਰਿਤ ਕਨੈਕਟ",
-                btn_visit: "ਪਲੇਟਫਾਰਮ 'ਤੇ ਜਾਓ", reveal_title: "ਨਵਾਂ ਪ੍ਰੋਜੈಕ್ਟ ਖੁਲਾਸਾ", launch_date: "12 ਮਈ, 2026 ਨੂੰ ਲਾਂਚ",
-                days: "ਦਿਨ", hours: "ਘੰਟੇ", mins: "ਮਿੰਟ", secs: "ਸੈਕੰਡ",
-                privacy_title: "ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ", security_title: "ਸੁਰੱਖਿਆ ਪਾਲਿસી", cookie_title: "ਕੂਕੀ ਪਾਲਿસી", ip_title: "IP ਪਾਲਿસી", terms_title: "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ",
-                foot_nav: "ਨੇਵੀਗੇਸ਼ਨ", foot_eco: "ਈਕੋਸਿਸਟਮ", foot_support: "ਸਹਾਇਤਾ"
-            },
-            ur: {
-                hero_main: "لاجسٹکس اصل مقصد ہے۔", hero_sub: "نقل و حمل اصل مقصد ہے۔",
-                btn_download: "ایپ ڈاؤن لوڈ کریں", about_title: "سادہ رابطہ",
-                btn_visit: "پلیٹ فارم دیکھیں", reveal_title: "نیا پروجیکٹ انکشاف", launch_date: "12 مئی 2026 کو لانچ ہو رہا ہے",
-                days: "دن", hours: "گھنٹے", mins: "منٹ", secs: "سیکنڈ",
-                privacy_title: "رازداری کی پالیسی", security_title: "سیکیورٹی پالیسی", cookie_title: "کوکی پالیسی", ip_title: "آئی پی پالیسی", terms_title: "سروس کی شرائط",
-                foot_nav: "نیویگیشن", foot_eco: "ایکو سسٹم", foot_support: "سپورٹ"
-            },
-            or: {
-                hero_main: "ଲଜିଷ୍ଟିକ୍ସ ହେଉଛି ମୂଳ ଲକ୍ଷ୍ୟ |", hero_sub: "ପରିବହନ ହେଉଛି ମୂଳ ଲକ୍ଷ୍ୟ |",
-                btn_download: "ଆପ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ", about_title: "ସରଳିକୃତ ସଂଯୋଗ",
-                btn_visit: "ପ୍ଲାଟଫର୍ମ ପରିଦର୍ଶନ କରନ୍ତୁ", reveal_title: "ନୂତନ ପ୍ରକଳ୍ପ ଉନ୍ମୋଚନ", launch_date: "ମଇ 12, 2026 ରେ ଲଞ୍ଚ",
-                days: "ଦିନ", hours: "ଘଣ୍ଟା", mins: "ମିନିଟ୍", secs: "ସେକେଣ୍ଡ",
-                privacy_title: "ଗୋପନୀୟତା ନୀତି", security_title: "ସୁରକ୍ଷା ନୀତି", cookie_title: "କୁକି ନୀତି", ip_title: "IP ନୀତି", terms_title: "ସେବା ସର୍ତ୍ତାବଳୀ",
-                foot_nav: "ନେଭିଗେସନ୍", foot_eco: "ଇକୋସିଷ୍ଟମ", foot_support: "ସହାୟତା"
-            },
-            sa: {
-                hero_main: "रसदः मुख्यं लक्ष्यम् अस्ति।", hero_sub: "परिवहनं मुख्यं लक्ष्यम् अस्ति।",
-                btn_download: "अप्पितं डाउनलोड् कुर्वन्तु", about_title: "सरलीकृतं संधत्स्व",
-                btn_visit: "मञ्चं पश्यन्तु", reveal_title: "नवीनपरियोजना अनावरणम्", launch_date: "मई १२, २०२६ दिनाङ्के प्रारभ्यते",
-                days: "दिनानि", hours: "होराः", mins: "निमेषाः", secs: "क्षणाः",
-                privacy_title: "गोपनीयतानीतिः", security_title: "सुरक्षानीतिः", cookie_title: "कुकीनीतिः", ip_title: "बौद्धिकसम्पत्तिनीतिः", terms_title: "सेवाशर्ताः",
-                foot_nav: "संचालनम्", foot_eco: "पारिस्थितिकी", foot_support: "सहायता"
+                contact_title: "సంప్రదింపు మౌలిక సదుపాయాలు", btn_call: "మద్దతుతో మాట్లాడండి",
+                foot_nav: "నావిగేషన్", global_node: "గ్లోబల్ నోడ్"
             }
         };
 
         const languages = [
             { code: 'en', name: 'English' }, { code: 'hi', name: 'हिन्दी' }, { code: 'te', name: 'తెలుగు' },
             { code: 'ta', name: 'தமிழ்' }, { code: 'kn', name: 'ಕನ್ನಡ' }, { code: 'ml', name: 'മലയാളം' },
-            { code: 'bn', name: 'বাংলা' }, { code: 'gu', name: 'ગુજરાતી' }, { code: 'mr', name: 'मराठी' },
-            { code: 'pa', name: 'ਪੰਜਾਬੀ' }, { code: 'ur', name: 'اردو' }, { code: 'or', name: 'ଓଡ଼ିଆ' },
-            { code: 'sa', name: 'संस्कृत' }
+            { code: 'bn', name: 'বাংলা' }, { code: 'gu', name: 'ગુજરાતી' }, { code: 'mr', name: 'मराठी' }
         ];
 
         const langGrid = document.getElementById('lang-grid');
@@ -610,16 +459,15 @@
         });
 
         // --- SCROLL REVEAL ---
-        const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // --- PARTICLES (Green & Grey Mix) ---
+        // --- PARTICLES (Tiny, Green & Gold) ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -631,47 +479,53 @@
 
         class Particle {
             constructor() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
-                this.size = Math.random() * 80 + 30;
-                this.vx = (Math.random() - 0.5) * 0.35;
-                this.vy = (Math.random() - 0.5) * 0.35;
-                this.colorType = Math.random() > 0.6 ? 'grey' : 'green';
+                this.init();
+            }
+            init() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5; // Tiny particles
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.color = Math.random() > 0.5 ? '#138808' : '#D4AF37'; // Green or Gold
+                this.alpha = Math.random() * 0.5 + 0.2;
             }
             update() {
-                this.x += this.vx; this.y += this.vy;
-                if(this.x < -100 || this.x > canvas.width + 100) this.vx *= -1;
-                if(this.y < -100 || this.y > canvas.height + 100) this.vy *= -1;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) {
+                    this.init();
+                }
             }
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                if (this.colorType === 'green') {
-                    ctx.fillStyle = 'rgba(19, 136, 8, 0.08)';
-                } else {
-                    ctx.fillStyle = 'rgba(128, 128, 128, 0.12)';
-                }
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
                 ctx.fill();
             }
         }
 
         function initParticles() {
             particles = [];
-            for(let i=0; i<45; i++) particles.push(new Particle());
+            for (let i = 0; i < 360; i++) { // Doubled particle count
+                particles.push(new Particle());
+            }
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => {
-            resize();
-            initParticles();
-        });
-        
-        resize(); initParticles(); animate();
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animate();
 
         // --- COUNTDOWN ---
         const targetDate = new Date("May 12, 2026 00:00:00").getTime();
